@@ -46,7 +46,7 @@ Django를 기반으로 개발되었으며, **InceptionNetV3** 모델을 활용�
 
 
 <details>
-<summary>README (한국어)</summary>
+README (한국어)
 
 ## 🖥️ 프로젝트 개요
 이 프로젝트는 **고양이의 HCM 질환을 자동으로 진단**할 수 있는 AI 기반 의료 웹 서비스입니다.
