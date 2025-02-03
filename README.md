@@ -18,27 +18,27 @@ Django를 기반으로 개발되었으며, **InceptionNetV3** 모델을 활용�
         <img src="./Screenshots/01_Dashboard.png" />
     </td>
     <td align="center">
-        <h3>Voice ID & TTS 입력화면</h3>
+        <h3>새로운 환자 등록 화면</h3>
         <img src="./Screenshots/02_1_New.png" />
     </td>
 </tr>
 <tr>
     <td align="center">
-        <h3>Voice ID & TTS 결과화면</h3>
+        <h3>기존 환자 선택 화면 </h3>
         <img src="./Screenshots/02_2_Old.png" />
     </td>
       <td align="center">
-        <h3>Voice ID & TTS 결과화면</h3>
+        <h3>의료 영상 진단 초기 화면</h3>
         <img src="./Screenshots/03_1_BeforPr.png" />
     </td>
 </tr>
 <tr>
     <td align="center">
-        <h3>Voice ID & TTS 결과화면</h3>
+        <h3>의료 영상 진단 결과 화면</h3>
         <img src="./Screenshots/03_2_AfterPr.png" />
     </td>
       <td align="center">
-        <h3>Voice ID & TTS 결과화면</h3>
+        <h3>PDF 저장 결과</h3>
         <img src="./Screenshots/04_PDF.png" />
     </td>
 </tr>
