@@ -2,6 +2,11 @@
 
 고양이의 **비대성 심근병증(HCM)** 진단을 위한 AI 기반 웹 애플리케이션입니다. 
 Django를 기반으로 개발되었으며, **InceptionNetV3** 모델을 활용하여 흉부 X-ray 이미지를 분석하고 진단을 수행합니다.
+동물병원 의료진의 편의를 고려해 웹 페이지의 **기존환자**와 **신규환자**의 차별적인 워크 플로우를 설계했습니다.
+
+### 워크플로우
+1. 기존환자: PatientDB와 DiagnosisDB로 구성된 데이터베이스에서 환자 선택 후 의료 영상 업로드 해서 진단. 진단결과로 자동 DiagnosisDB 업데이트 됨.
+2. 신규환자: 환자 정보 입력하면 PatientDB 업데이트되며, 의료 영상 업로드 해서 진단. 진단결과로 자동 DiagnosisDB도 업데이트 됨.
 
 ### Web page Image
 <table>
@@ -77,6 +82,30 @@ Cat_HCM_Diagnosis_Web
 │── manage.py                      # Django 실행 파일
 ```
 
+## 🗄️ 데이터베이스 구조
+본 프로젝트에서는 **Django ORM**을 사용하여 환자 정보와 진단 데이터를 저장합니다. 데이터는 **SQLite**를 사용하여 관리됩니다.
+
+### **📌 테이블 1: `PatientDB` (환자 정보)**  
+| 필드명         | 데이터 타입   | 설명                         |
+|--------------|------------|-----------------------------|
+| `cat_id`    | AutoField (PK) | 고유 환자 ID (자동 생성) |
+| `owner_phone` | CharField(15) | 보호자 연락처 |
+| `cat_name`  | CharField(100) | 고양이 이름 |
+| `breed`     | CharField(100) | 품종 |
+| `age`       | Integer | 나이 |
+| `gender`    | CharField(10) | 성별 (`Male` / `Female`) |
+| `remarks`   | TextField (nullable) | 비고란 (추가 정보) |
+
+### **📌 테이블 2: `DiagnosisDB` (진단 기록)**  
+| 필드명         | 데이터 타입   | 설명                         |
+|--------------|------------|-----------------------------|
+| `diagnosis_id` | AutoField (PK) | 진단 기록 ID (자동 생성) |
+| `cat_id`    | ForeignKey (PatientDB) | 해당 환자의 ID (`PatientDB` 테이블과 연결) |
+| `diagnosis_time` | DateTimeField | 진단이 이루어진 시간 (자동 추가) |
+| `diagnosis_result` | CharField(10) | AI 예측 결과 (`Normal` / `HCM`) |
+| `diagnosis_image_path` | CharField(255) | 업로드된 X-ray 이미지 경로 |
+
+
 ## 🚀 설치 및 실행 방법
 ```bash
 pip install -r requirements.txt
@@ -143,6 +172,30 @@ Cat_HCM_Diagnosis_Web
 │── manage.py                      # Django Execution File
 ```
 
+## 🗄️ Database Structure
+This project uses **Django ORM** to store patient information and diagnostic data. The data is managed using **SQLite**.
+
+### **📌 Table 1: `PatientDB` (Patient Information)**  
+| Field Name   | Data Type   | Description |
+|--------------|------------|-------------|
+| `cat_id`    | AutoField (PK) | Unique Patient ID (Auto-generated) |
+| `owner_phone` | CharField(15) | Owner's Contact Number |
+| `cat_name`  | CharField(100) | Cat's Name |
+| `breed`     | CharField(100) | Breed |
+| `age`       | Integer | Age |
+| `gender`    | CharField(10) | Gender (`Male` / `Female`) |
+| `remarks`   | TextField (nullable) | Additional Notes |
+
+### **📌 Table 2: `DiagnosisDB` (Diagnosis Records)**  
+| Field Name   | Data Type   | Description |
+|--------------|------------|-------------|
+| `diagnosis_id` | AutoField (PK) | Diagnosis Record ID (Auto-generated) |
+| `cat_id`    | ForeignKey (PatientDB) | Related Patient ID (Linked to `PatientDB` Table) |
+| `diagnosis_time` | DateTimeField | Timestamp of Diagnosis (Auto-generated) |
+| `diagnosis_result` | CharField(10) | AI Prediction Result (`Normal` / `HCM`) |
+| `diagnosis_image_path` | CharField(255) | Uploaded X-ray Image Path |
+
+
 ## 🚀 Installation & Execution
 ```bash
 pip install -r requirements.txt
@@ -167,4 +220,3 @@ Access the web application at `http://127.0.0.1:8000/`.
 This project is distributed under the **MIT License**.
 
 </details>
-
