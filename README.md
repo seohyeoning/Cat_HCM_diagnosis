@@ -4,15 +4,17 @@
 Django를 기반으로 개발되었으며, **InceptionNetV3** 모델을 활용하여 흉부 X-ray 이미지를 분석하고 진단을 수행합니다.
 동물병원 의료진의 편의를 고려해 웹 페이지의 **기존환자**와 **신규환자**의 차별적인 워크 플로우를 설계했습니다.
 
-### 워크플로우
-1. 기존환자: PatientDB와 DiagnosisDB로 구성된 데이터베이스에서 환자 선택 후 의료 영상 업로드 해서 진단. 진단결과로 자동 DiagnosisDB 업데이트 됨.
-2. 신규환자: 환자 정보 입력하면 PatientDB 업데이트되며, 의료 영상 업로드 해서 진단. 진단결과로 자동 DiagnosisDB도 업데이트 됨.
+### 🔄 워크플로우
+1. **기존환자**: `PatientDB`와 `DiagnosisDB`로 구성된 데이터베이스에서 환자를 선택한 후, 의료 영상을 업로드하여 진단을 진행합니다.  
+   → 진단 결과가 자동으로 `DiagnosisDB`에 업데이트됩니다.
+2. **신규환자**: 환자 정보를 입력하면 `PatientDB`에 등록되며, 이후 의료 영상을 업로드하여 진단을 진행합니다.  
+   → 진단 결과가 자동으로 `DiagnosisDB`에 업데이트됩니다.
 
 ### Web page Image
 <table>
 <tr>
     <td align="center">
-        <h3>Voice ID & TTS 초기화면</h3>
+        <h3>웹 사이트 초기화면(대시보드)</h3>
         <img src="./Screenshots/01_Dashboard.png" />
     </td>
     <td align="center">
@@ -139,6 +141,12 @@ python manage.py runserver
 ## 🖥️ Project Overview
 This is an **AI-based web application** for diagnosing **Hypertrophic Cardiomyopathy (HCM) in cats** using chest X-ray images.
 
+## 🔄 Workflow
+1. Existing Patients: Select a patient from the `PatientDB` and `DiagnosisDB`, upload a medical image, and proceed with diagnosis.→ The diagnosis result is automatically updated in `DiagnosisDB`.
+
+2. New Patients: Enter patient details to update the `PatientDB`, then upload a medical image for diagnosis.→ The diagnosis result is automatically updated in `DiagnosisDB`.
+
+   
 ### 🔹 Key Features
 - **X-ray Image Upload & Preprocessing**
 - **AI Model (InceptionNetV3) for HCM Diagnosis**
