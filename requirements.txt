@@ -1,0 +1,9 @@
+Django>=4.0
+torch>=2.0
+torchvision
+numpy
+opencv-python
+matplotlib
+Pillow
+scikit-learn
+chart.js
