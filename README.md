@@ -8,7 +8,6 @@ Django를 기반으로 개발되었으며, **InceptionNetV3** 모델을 활용�
 <tr>
     <td align="center">
         <h3>Voice ID & TTS 초기화면</h3>
-        
         <img src="./screenshots/01_Dashboard.png" />
     </td>
     <td align="center">
