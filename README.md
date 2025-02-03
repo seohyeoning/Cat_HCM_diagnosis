@@ -1,10 +1,3 @@
-# 🏥 Cat HCM Diagnosis Web Service 🐱💓
-
-고양이의 **비대성 심근병증(HCM)** 진단을 위한 AI 기반 웹 애플리케이션입니다.  
-Django를 기반으로 개발되었으며, **InceptionNetV3** 모델을 활용하여 흉부 X-ray 이미지를 분석하고 진단을 수행합니다.  
-동물병원 의료진의 편의를 고려해 웹 페이지의 **기존환자**와 **신규환자**의 차별적인 워크 플로우를 설계했습니다.
-
-
 <details>
 <summary>README (English)</summary>
 
@@ -98,6 +91,14 @@ Access the web application at `http://127.0.0.1:8000/`.
 This project is distributed under the **MIT License**.
 
 </details>
+
+---
+
+# 🏥 Cat HCM Diagnosis Web Service 🐱💓
+
+고양이의 **비대성 심근병증(HCM)** 진단을 위한 AI 기반 웹 애플리케이션입니다.  
+Django를 기반으로 개발되었으며, **InceptionNetV3** 모델을 활용하여 흉부 X-ray 이미지를 분석하고 진단을 수행합니다.  
+동물병원 의료진의 편의를 고려해 웹 페이지의 **기존환자**와 **신규환자**의 차별적인 워크 플로우를 설계했습니다.
 
 
 ### 🔄 워크플로우
