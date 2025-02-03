@@ -43,7 +43,9 @@ Django를 기반으로 개발되었으며, **InceptionNetV3** 모델을 활용�
     </td>
 </tr>
 </table>
+
 ---
+
 <details>
 <summary>README (English)</summary>
 
