@@ -3,6 +3,31 @@
 고양이의 **비대성 심근병증(HCM)** 진단을 위한 AI 기반 웹 애플리케이션입니다. 
 Django를 기반으로 개발되었으며, **InceptionNetV3** 모델을 활용하여 흉부 X-ray 이미지를 분석하고 진단을 수행합니다.
 
+### Web page Image
+<table>
+<tr>
+    <td align="center">
+        <h3>Voice ID & TTS 초기화면</h3>
+        <img src="./VoiceID_tts/img1.PNG" />
+    </td>
+    <td align="center">
+        <h3>Voice ID & TTS 입력화면</h3>
+        <img src="./VoiceID_tts/img2.PNG" />
+    </td>
+</tr>
+<tr>
+    <td align="center">
+        <h3>Voice ID & TTS 결과화면</h3>
+        <img src="./VoiceID_tts/img3.PNG"/>
+    </td>
+      <td align="center">
+        <h3>Voice ID & TTS 결과화면</h3>
+        <img src="./VoiceID_tts/img3.PNG"/>
+    </td>
+</tr>
+</table>
+
+
 <details>
 <summary>README (한국어)</summary>
 
