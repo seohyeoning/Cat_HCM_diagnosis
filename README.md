@@ -8,31 +8,31 @@ Django를 기반으로 개발되었으며, **InceptionNetV3** 모델을 활용�
 <tr>
     <td align="center">
         <h3>Voice ID & TTS 초기화면</h3>
-        <img src="./screenshots/01_Dashboard.png" />
+        <img src="./Screenshots/01_Dashboard.png" />
     </td>
     <td align="center">
         <h3>Voice ID & TTS 입력화면</h3>
-        <img src="./screenshots/02_1_New.png" />
+        <img src="./Screenshots/02_1_New.png" />
     </td>
 </tr>
 <tr>
     <td align="center">
         <h3>Voice ID & TTS 결과화면</h3>
-        <img src="./screenshots/02_2_Old.png" />
+        <img src="./Screenshots/02_2_Old.png" />
     </td>
       <td align="center">
         <h3>Voice ID & TTS 결과화면</h3>
-        <img src="./screenshots/03_1_BeforPr.png" />
+        <img src="./Screenshots/03_1_BeforPr.png" />
     </td>
 </tr>
 <tr>
     <td align="center">
         <h3>Voice ID & TTS 결과화면</h3>
-        <img src="./screenshots/03_2_AfterPr.png" />
+        <img src="./Screenshots/03_2_AfterPr.png" />
     </td>
       <td align="center">
         <h3>Voice ID & TTS 결과화면</h3>
-        <img src="./screenshots/04_PDF.png" />
+        <img src="./Screenshots/04_PDF.png" />
     </td>
 </tr>
 </table>
