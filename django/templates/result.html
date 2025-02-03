@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnosis Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .result {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .probabilities {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .probabilities h2 {
+            font-size: 1.4em;
+            text-align: center;
+        }
+        .probabilities p {
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Diagnosis Result</h1>
+        
+        <!-- 업로드된 이미지 -->
+        <img src="{{ file_url }}" alt="Uploaded X-Ray Image">
+        <img src="{{ clahe_url }}" alt="X-Ray Image applied CLAHE">
+
+        <!-- 예측 결과 -->
+        <div class="result">
+            <strong>Predicted Class:</strong> {{ predicted_class }}
+        </div>
+
+        <!-- 확률 -->
+        <div class="probabilities">
+            <h2>Probabilities</h2>
+            <p><strong>Normal:</strong> {{ normal_p }}</p>
+            <p><strong>HCM:</strong> {{ hcm_p }}</p>
+        </div>
+
+        <!-- 홈으로 돌아가기 버튼 -->
+        <a href="{% url 'diagnosis_start' %}" style="...">Upload Another Image</a>
+
+    </div>
+</body>
+</html>

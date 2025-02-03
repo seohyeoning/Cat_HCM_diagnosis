@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>환자 관리 시스템</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">대시보드</a>
+            <a href="{% url 'diagnosis' %}">진단</a>
+            <a href="{% url 'database:manage_patients' %}">데이터베이스</a>
+            <a href="{% url 'statistic' %}">통계</a>
+        </nav>
+        <h1>환자 관리 시스템</h1>
+    </header>
+
+    <main>
+        <!-- 검색 폼 -->
+        <form method="get" id="search-form">
+            <input type="text" name="name" value="{{ name_query }}" placeholder="이름 검색">
+            <input type="number" name="age" value="{{ age_query }}" placeholder="나이 검색">
+            <input type="text" name="breed" value="{{ breed_query }}" placeholder="품종 검색">
+            <select name="gender">
+                <option value="">성별 선택</option>
+                <option value="Male" {% if gender_query == "Male" %}selected{% endif %}>수컷</option>
+                <option value="Female" {% if gender_query == "Female" %}selected{% endif %}>암컷</option>
+            </select>
+            <select name="diagnosis_result">
+                <option value="">진단 결과 선택</option>
+                <option value="Normal" {% if diagnosis_query == "Normal" %}selected{% endif %}>정상</option>
+                <option value="Abnormal" {% if diagnosis_query == "Abnormal" %}selected{% endif %}>비정상</option>
+            </select>
+            <button type="submit">검색</button>
+        </form>
+
+        <!-- 환자 테이블 -->
+        <table id="patients-table">
+            <thead>
+                <tr>
+                    <th><a href="#" onclick="sortTable(0)">이름</a></th>
+                    <th><a href="#" onclick="sortTable(1)">나이</a></th>
+                    <th><a href="#" onclick="sortTable(2)">품종</a></th>
+                    <th><a href="#" onclick="sortTable(3)">성별</a></th>
+                    <th><a href="#" onclick="sortTable(4)">진단 결과</a></th>
+                    <th>수정</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                <tr>
+                    <td>{{ patient.name }}</td>
+                    <td>{{ patient.age }}</td>
+                    <td>{{ patient.breed }}</td>
+                    <td>{{ patient.gender }}</td>
+                    <td>{{ patient.diagnosis_result }}</td>
+                    <td>
+                        {% if patient.id %}
+                            <a href="{% url 'database:edit_patient' patient.id %}">수정</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- 데이터 추가/수정/삭제 버튼 -->
+        <div id="manage-buttons">
+            <button onclick="openForm()">데이터 추가</button>
+            <button onclick="editSelected()">데이터 수정</button>
+            <button onclick="deleteSelected()">데이터 삭제</button>
+        </div>
+
+        <!-- 데이터 추가/수정 폼 -->
+        <section>
+            <h2>{% if selected_patient %}환자 수정{% else %}새 환자 추가{% endif %}</h2>
+            <form method="post">
+                {% csrf_token %}
+                <label for="name">이름:</label>
+                <input type="text" id="name" name="name" value="{{ selected_patient.name|default_if_none:'' }}" required><br>
+
+                <label for="age">나이:</label>
+                <input type="number" id="age" name="age" value="{{ selected_patient.age|default_if_none:'' }}" required><br>
+
+                <label for="breed">품종:</label>
+                <input type="text" id="breed" name="breed" value="{{ selected_patient.breed|default_if_none:'' }}" required><br>
+
+                <label for="gender">성별:</label>
+                <select id="gender" name="gender" required>
+                    <option value="Male" {% if selected_patient and selected_patient.gender == "Male" %}selected{% endif %}>수컷</option>
+                    <option value="Female" {% if selected_patient and selected_patient.gender == "Female" %}selected{% endif %}>암컷</option>
+                </select><br>
+
+                <label for="diagnosis_result">진단 결과:</label>
+                <select id="diagnosis_result" name="diagnosis_result" required>
+                    <option value="Normal" {% if selected_patient and selected_patient.diagnosis_result == "Normal" %}selected{% endif %}>정상</option>
+                    <option value="Abnormal" {% if selected_patient and selected_patient.diagnosis_result == "Abnormal" %}selected{% endif %}>비정상</option>
+                </select><br>
+
+                <button type="submit">저장</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Cat HCM Diagnosis Service</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 테이블 정렬
+        function sortTable(columnIndex) {
+            const table = document.getElementById("patients-table");
+            const rows = Array.from(table.rows).slice(1);
+            const sortedRows = rows.sort((a, b) =>
+                a.cells[columnIndex].innerText.localeCompare(b.cells[columnIndex].innerText)
+            );
+
+            table.tBodies[0].append(...sortedRows);
+        }
+    </script>
+</body>
+</html>

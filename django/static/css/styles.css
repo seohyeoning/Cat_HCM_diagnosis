@@ -1,0 +1,184 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px 20px; /* 헤더의 높이를 조정할 수 있는 여유 공간 */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+main {
+    margin-top: 80px; /* 헤더 높이 (padding 포함)만큼 간격 추가 */
+    padding: 20px;
+}
+
+header nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+/* 헤더 높이만큼 본문 간격 추가 */
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 80px auto 0 auto; /* 헤더 높이를 고려한 margin-top */
+}
+
+.button {
+    font-size: 16px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+    text-align: center; /* 중앙 정렬 */
+}
+
+.styled-table th, .styled-table td {
+    border: 1px solid #dddddd; /* 테두리 */
+    padding: 12px 15px; /* 셀 간격 */
+}
+
+.styled-table thead tr {
+    background-color: #009879; /* 헤더 배경색 */
+    color: #ffffff; /* 헤더 글자색 */
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3; /* 짝수 행 배경색 */
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+
+
+/* dd */
+
+.new_container {
+padding: 20px;
+display: flex;
+justify-content: space-between;
+max-width: 1200px;
+margin: 80px auto 0 auto;
+}
+.left-panel, .right-panel {
+width: 48%;
+box-sizing: border-box;
+}
+.left-panel {
+padding-right: 10px;
+border-right: 1px solid #ccc;
+}
+.right-panel {
+padding-left: 10px;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+border: 1px solid #ddd;
+border-radius: 5px;
+margin-bottom: 5px;
+}
+.new_button {
+display: inline-block;
+margin-top: 5px;
+padding: 10px 20px;
+background-color: #007BFF;
+color: white;
+text-decoration: none;
+border-radius: 5px;
+border: none;
+cursor: pointer;
+}
+.button:disabled {
+background-color: #ccc;
+cursor: not-allowed;
+}
+.result-panel {
+background-color: #F9F9F9;
+border: 1px solid #ddd;
+padding: 5px;
+border-radius: 1px;
+}
+
+/* for table */
+
+.table-container {
+    width: 100%; /* 컨테이너의 너비 */
+    max-height: 360px; /* 최대 높이를 제한하여 스크롤 가능하도록 설정 */
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+    border: 1px solid #dddddd; /* 컨테이너 테두리 */
+    margin: 20px 0; /* 위아래 간격 추가 */
+    background-color: #fff; /* 배경색 설정 */
+}
+
+/* 테이블 스타일 유지 */
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-container thead th {
+    position: sticky; /* 헤더 고정 */
+    top: 0; /* 상단에 고정 */
+    background-color: #007BFF; /* 헤더 배경색 */
+    color: #ffffff; /* 헤더 글자색 */
+    z-index: 1; /* 헤더가 다른 요소 위에 표시되도록 설정 */
+    border-bottom: 1px solid #dddddd; /* 헤더 아래 테두리 */
+}
+
+.table-container tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3; /* 짝수 행 배경색 */
+}
+
+.table-container tbody tr:last-of-type {
+    border-bottom: 1px solid #007BFF; /* 마지막 행 테두리 */
+}
+
+.table-container th, .table-container td {
+    padding: 7px 3px; /* 셀 간격 */
+    border: 1px solid #dddddd; /* 셀 테두리 */
+    white-space: nowrap;
+}

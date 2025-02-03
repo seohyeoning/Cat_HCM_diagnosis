@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>환자 관리</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">대시보드</a>
+            <a href="{% url 'diagnosis' %}">진단</a>
+            <a href="{% url 'database:search_patients' %}">데이터베이스</a>
+            <a href="{% url 'statistic' %}">통계</a>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>{% if selected_patient %}환자 수정{% else %}새 환자 추가{% endif %}</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="{% if selected_patient %}edit{% else %}add{% endif %}">
+            
+            <!-- 환자 정보 입력 -->
+            <label for="name">이름:</label>
+            <input type="text" id="name" name="name" value="{{ selected_patient.name|default_if_none:'' }}" required><br>
+
+            <label for="age">나이:</label>
+            <input type="number" id="age" name="age" value="{{ selected_patient.age|default_if_none:'' }}" required><br>
+
+            <label for="breed">품종:</label>
+            <input type="text" id="breed" name="breed" value="{{ selected_patient.breed|default_if_none:'' }}" required><br>
+
+            <label for="gender">성별:</label>
+            <select id="gender" name="gender" required>
+                <option value="Male" {% if selected_patient and selected_patient.gender == "Male" %}selected{% endif %}>수컷</option>
+                <option value="Female" {% if selected_patient and selected_patient.gender == "Female" %}selected{% endif %}>암컷</option>
+            </select><br>
+
+            <!-- 이미지 업로드 -->
+            {% if not selected_patient %}
+            <label for="image">X-Ray 이미지:</label>
+            <input type="file" id="image" name="image" required><br>
+            {% endif %}
+
+            <!-- 에러 메시지 -->
+            {% if error %}
+            <p style="color: red;">{{ error }}</p>
+            {% endif %}
+
+            <!-- 제출 버튼 -->
+            <button type="submit">{% if selected_patient %}수정{% else %}추가{% endif %}</button>
+        </form>
+    </div>
+</body>
+</html>

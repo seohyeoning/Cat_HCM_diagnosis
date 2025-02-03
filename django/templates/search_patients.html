@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>환자 검색</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">대시보드</a>
+            <a href="{% url 'diagnosis' %}">진단</a>
+            <a href="{% url 'database:search_patients' %}">데이터베이스</a>
+            <a href="{% url 'statistic' %}">통계</a>
+        </nav>
+    </header>
+    <div class="container">
+            <h1>환자 검색</h1>
+            <form method="get">
+                <input type="text" name="cat_name" value="{{ cat_name_query }}" placeholder="이름 검색">
+                <input type="text" name="owner_phone" value="{{ owner_phone_query }}" placeholder="연락처 검색">
+                <select name="gender">
+                    <option value="">성별 선택&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                    <option value="Male" {% if gender_query == "Male" %}selected{% endif %}>수컷</option>
+                    <option value="Female" {% if gender_query == "Female" %}selected{% endif %}>암컷</option>
+                </select>
+                <button type="submit">&nbsp;검색&nbsp;</button>
+            </form>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th> </th>
+                            <th>이름</th>
+                            <th>보호자 연락처</th>
+                            <th>성별</th>
+                            <th>품종</th>
+                            <th>나이</th>
+                            <th>진단 결과</th>
+                            <th>진단 일시</th>
+                            <th>진단 이미지</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patients %}
+                        <tr>
+                            <!-- 체크 박스 -->
+                            <td>
+                                <input
+                                    type="radio"
+                                    name="selected_patient"
+                                    value="{{ patient.cat_id }}"
+                                    onchange="enableDiagnosisButton()"
+                                />
+                            </td>
+
+                            <!-- 환자 기본 정보 -->
+                            <td>{{ patient.cat_name }}</td>
+                            <td>{{ patient.owner_phone }}</td>
+                            <td>{{ patient.gender }}</td>
+                            <td>{{ patient.breed }}</td>
+                            <td>&nbsp;{{ patient.age }}</td>
+
+                            <!-- 진단 결과 -->
+                            <td>
+                                {% if patient.diagnoses %}
+                                    {% for diagnosis in patient.diagnoses %}
+                                        {{ diagnosis.diagnosis_result }}<br>
+                                    {% endfor %}
+                                {% endif %}
+                            </td>
+
+                            <!-- 진단 일시 -->
+                            <td>
+                                {% if patient.diagnoses %}
+                                    {% for diagnosis in patient.diagnoses %}
+                                        {{ diagnosis.diagnosis_time|date:"Y-m-d H:i" }}<br>
+                                    {% endfor %}
+                                {% endif %}
+                            </td>
+
+                            <!-- 진단 이미지 -->
+                            <td>
+                                {% if patient.diagnoses %}
+                                    {% for diagnosis in patient.diagnoses %}
+                                        {{ diagnosis.diagnosis_image_path|slice:"7:" }}<br>
+                                    {% endfor %}
+                                {% endif %}
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        <button
+            id="diagnosisButton"
+            disabled
+            onclick="goToDiagnosis()"
+            style="background-color: #333;
+                    color: white;
+                    padding: 10px 20px;
+                    font-size: 20px;
+                    border: none;
+                    border-radius: 5px;
+                    opacity: 0.6;
+                    cursor: not-allowed;">진단하러 가기
+        </button>
+        <script>
+            // '진단하러 가기' 버튼 활성화
+            function enableDiagnosisButton() {
+                const diagnosisButton = document.getElementById("diagnosisButton");
+                const selectedPatient = document.querySelector(
+                    'input[name="selected_patient"]:checked'
+                );
+                if (selectedPatient) {
+                    diagnosisButton.disabled = false; // 버튼 활성화
+                    diagnosisButton.style.opacity = "1"; // 투명도 제거
+                    diagnosisButton.style.cursor = "pointer"; // 커서 변경
+                    diagnosisButton.style.backgroundColor = "#007BFF"; // 파란색
+                } else {
+                    diagnosisButton.disabled = true; // 버튼 비활성화
+                    diagnosisButton.style.opacity = "0.6"; // 투명도 추가
+                    diagnosisButton.style.cursor = "not-allowed"; // 커서 변경
+                    diagnosisButton.style.backgroundColor = "#333"; // 회색
+                }
+            }
+            // 진단 페이지로 이동하며 선택된 환자 ID 전달
+            function goToDiagnosis() {
+                const selectedPatient = document.querySelector(
+                    'input[name="selected_patient"]:checked'
+                );
+                if (selectedPatient) {
+                    const patient_id = selectedPatient.value;
+                    const url = `{% url 'diagnosis_gizon' 0 %}`.replace('0', patient_id); // URL에 patient_id 동적 삽입
+                    window.location.href = url;
+                } else {
+                    alert("환자를 선택해주세요."); // 선택되지 않았을 때 경고
+                }                
+            }
+        </script>
+
+</body>
+</html>

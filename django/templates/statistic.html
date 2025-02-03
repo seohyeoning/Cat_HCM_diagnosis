@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리포트</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">대시보드</a>
+            <a href="{% url 'diagnosis' %}">진단</a>
+            <a href="{% url 'database:search_patients' %}">데이터베이스</a>
+            <a href="{% url 'statistic' %}">통계</a>
+        </nav>
+    </header>
+    <div class="container mt-4">
+        <h1 style="font-size: 2.5rem; font-weight: bold; line-height: 1.2;">리포트</h1>
+        <p>진단 데이터를 기반으로 통계를 확인하고 리포트를 생성합니다.</p>
+
+        <!-- (A) 필터 폼 -->
+        <form method="post" action="{% url 'process_statistic' %}" class="mb-4">
+            {% csrf_token %}
+            <!-- 날짜 범위 -->
+            <label for="dateRange" class="fw-bold">날짜 범위</label><br>
+            <input type="date" name="startDate" id="startDate" class="form-control d-inline-block w-auto"
+                   value="{{ start_date }}">
+            <input type="date" name="endDate" id="endDate" class="form-control d-inline-block w-auto ms-2"
+                   value="{{ end_date }}">
+
+            <!-- 품종 선택 -->
+            <div class="mt-3">
+                <label for="breed" class="fw-bold">품종</label>
+                <select name="breed" id="breed" class="form-select">
+                    <option value="">전체</option>
+                    {% for choice in breed_choices %}
+                    <option value="{{ choice }}" {% if choice == breed %}selected{% endif %}>{{ choice }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- 나이(minAge, maxAge) -->
+            <div class="mt-3">
+                <label for="minAge" class="fw-bold">나이 범위</label>
+                <div class="d-flex">
+                    <input type="number" name="minAge" id="minAge" class="form-control me-2"
+                           placeholder="최소 나이" value="{{ min_age }}">
+                    <input type="number" name="maxAge" id="maxAge" class="form-control"
+                           placeholder="최대 나이" value="{{ max_age }}">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">리포트 생성</button>
+        </form>
+
+        <!-- (B) 차트 시각화 -->
+        <hr class="my-4">
+        <h2 style="font-size: 2.0rem; font-weight: bold; line-height: 1.2;">월별 진단 추이</h2>
+        <canvas id="monthChart" style="max-width:600px;"></canvas>
+
+        <h2 class="mt-5">HCM vs Normal 분포</h2>
+        <canvas id="diagPie" style="max-width:400px;"></canvas>
+
+        <script>
+          // 월별 진단 통계 데이터 준비
+          var monthlyStats = {{ monthly_stats|safe }};
+          var monthLabels = monthlyStats.map(item => {
+            const date = new Date(item.month);
+            return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}`;
+          });
+
+          var monthData = monthlyStats.map(item => item.count);
+
+          // HCM vs Normal 분포 데이터 준비
+          var diagCounts = {{ diag_counts|safe }};
+          var diagLabels = diagCounts.map(item => item.diagnosis_result);
+          var diagData = diagCounts.map(item => item.count);
+
+          // 월별 진단 추이 그래프
+          var ctx = document.getElementById('monthChart').getContext('2d');
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: monthLabels,
+              datasets: [{
+                label: '월별 진단 수',
+                data: monthData,
+                backgroundColor: 'rgba(54,162,235,0.5)',
+                borderColor: 'rgba(54,162,235,1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: { beginAtZero: true }
+              }
+            }
+          });
+
+          // HCM vs Normal 분포 파이 차트
+          var ctx2 = document.getElementById('diagPie').getContext('2d');
+          new Chart(ctx2, {
+            type: 'pie',
+            data: {
+              labels: diagLabels,
+              datasets: [{
+                data: diagData,
+                backgroundColor: [
+                  'rgba(75,192,192,0.5)',
+                  'rgba(255,99,132,0.5)'
+                ]
+              }]
+            },
+            options: {
+              plugins: {
+                tooltip: {
+                  callbacks: {
+                    label: function(tooltipItem) {
+                      let total = diagData.reduce((a, b) => a + b, 0);
+                      let value = diagData[tooltipItem.dataIndex];
+                      let percentage = ((value / total) * 100).toFixed(2);
+                      return `${diagLabels[tooltipItem.dataIndex]}: ${percentage}% (${value})`;
+                    }
+                  }
+                }
+              }
+            }
+          });
+        </script>
+    </div>
+</body>
+</html>
