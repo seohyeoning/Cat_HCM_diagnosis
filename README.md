@@ -4,47 +4,6 @@
 Django를 기반으로 개발되었으며, **InceptionNetV3** 모델을 활용하여 흉부 X-ray 이미지를 분석하고 진단을 수행합니다.  
 동물병원 의료진의 편의를 고려해 웹 페이지의 **기존환자**와 **신규환자**의 차별적인 워크 플로우를 설계했습니다.
 
-### 🔄 워크플로우
-1. **기존환자**: `PatientDB`와 `DiagnosisDB`로 구성된 데이터베이스에서 환자를 선택한 후, 의료 영상을 업로드하여 진단을 진행합니다.  
-   → 진단 결과가 자동으로 `DiagnosisDB`에 업데이트됩니다.
-2. **신규환자**: 환자 정보를 입력하면 `PatientDB`에 등록되며, 이후 의료 영상을 업로드하여 진단을 진행합니다.  
-   → 진단 결과가 자동으로 `DiagnosisDB`에 업데이트됩니다.
-
-### Web page Image
-<table>
-<tr>
-    <td align="center">
-        <h3>웹 사이트 초기화면(대시보드)</h3>
-        <img src="./Screenshots/01_Dashboard.png" />
-    </td>
-    <td align="center">
-        <h3>새로운 환자 등록 화면</h3>
-        <img src="./Screenshots/02_1_New.png" />
-    </td>
-</tr>
-<tr>
-    <td align="center">
-        <h3>기존 환자 선택 화면 </h3>
-        <img src="./Screenshots/02_2_Old.png" />
-    </td>
-      <td align="center">
-        <h3>의료 영상 진단 초기 화면</h3>
-        <img src="./Screenshots/03_1_BeforPr.png" />
-    </td>
-</tr>
-<tr>
-    <td align="center">
-        <h3>의료 영상 진단 결과 화면</h3>
-        <img src="./Screenshots/03_2_AfterPr.png" />
-    </td>
-      <td align="center">
-        <h3>PDF 저장 결과</h3>
-        <img src="./Screenshots/04_PDF.png" />
-    </td>
-</tr>
-</table>
-
----
 
 <details>
 <summary>README (English)</summary>
@@ -139,6 +98,47 @@ Access the web application at `http://127.0.0.1:8000/`.
 This project is distributed under the **MIT License**.
 
 </details>
+
+
+### 🔄 워크플로우
+1. **기존환자**: `PatientDB`와 `DiagnosisDB`로 구성된 데이터베이스에서 환자를 선택한 후, 의료 영상을 업로드하여 진단을 진행합니다.  
+   → 진단 결과가 자동으로 `DiagnosisDB`에 업데이트됩니다.
+2. **신규환자**: 환자 정보를 입력하면 `PatientDB`에 등록되며, 이후 의료 영상을 업로드하여 진단을 진행합니다.  
+   → 진단 결과가 자동으로 `DiagnosisDB`에 업데이트됩니다.
+
+### Web page Image
+<table>
+<tr>
+    <td align="center">
+        <h3>웹 사이트 초기화면(대시보드)</h3>
+        <img src="./Screenshots/01_Dashboard.png" />
+    </td>
+    <td align="center">
+        <h3>새로운 환자 등록 화면</h3>
+        <img src="./Screenshots/02_1_New.png" />
+    </td>
+</tr>
+<tr>
+    <td align="center">
+        <h3>기존 환자 선택 화면 </h3>
+        <img src="./Screenshots/02_2_Old.png" />
+    </td>
+      <td align="center">
+        <h3>의료 영상 진단 초기 화면</h3>
+        <img src="./Screenshots/03_1_BeforPr.png" />
+    </td>
+</tr>
+<tr>
+    <td align="center">
+        <h3>의료 영상 진단 결과 화면</h3>
+        <img src="./Screenshots/03_2_AfterPr.png" />
+    </td>
+      <td align="center">
+        <h3>PDF 저장 결과</h3>
+        <img src="./Screenshots/04_PDF.png" />
+    </td>
+</tr>
+</table>
 
 ---
 ## 🖥️ 프로젝트 개요
